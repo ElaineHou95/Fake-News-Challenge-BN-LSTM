@@ -55,6 +55,5 @@ class WordEmbedding:
                     data_stances.append([titleVec,bodyVec,label])
                 else:
                     data_stances.append([titleVec,bodyVec])
-            print('agree: '+str(a)+'unrelated: '+str(u)+'discuss: '+str(d)+'disagree: '+str(da))
             pickle.dump(np.array(data_stances),embedded_data_stances)
             print("Transfer word to vector successfully\n")
