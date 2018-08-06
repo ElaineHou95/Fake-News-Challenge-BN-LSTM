@@ -126,7 +126,7 @@ pred=tf.nn.softmax(RNN(x_title,x_body,seqlen_title,seqlen_body,weights,biases))
 
 cross_entropy = tf.reduce_mean(-tf.reduce_sum(y * tf.log(pred), reduction_indices=[1]))
 #cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=pred,labels=y))
-optimizer = tf.train.AdamOptimizer().minimize(cross_entropy)
+#optimizer = tf.train.AdamOptimizer().minimize(cross_entropy)
 #gvs = optimizer.compute_gradients(cross_entropy)
 #capped_gvs = [(None if grad is None else tf.clip_by_value(grad, -1., 1.), var) for grad, var in gvs]
 #train_step = optimizer.apply_gradients(capped_gvs)
@@ -134,7 +134,7 @@ optimizer = tf.train.AdamOptimizer().minimize(cross_entropy)
 
 #cost =tf.reduce_mean(cross_entropy)
 #cost =tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=pred,labels=y))
-#optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
+optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
 correct_pred=tf.equal(tf.argmax(pred,1),tf.argmax(y,1))
 accuracy=tf.reduce_mean(tf.cast(correct_pred,tf.float32))
 
