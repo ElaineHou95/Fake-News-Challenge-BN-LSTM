@@ -90,6 +90,7 @@ display_step=10
 
 n_input=50
 n_hidden=60
+layer_num = 5
 n_classes=4
 
 
@@ -110,12 +111,13 @@ def RNN(x_title,x_body,seqlen_title,seqlen_body,weights,biases):
 
 #    lstm_cell=rnn.BasicLSTMCell(n_hidden)
     lstm_cell=BNLSTMCell(n_hidden, training)
+    mlstm_cell = rnn.MultiRNNCell([lstm_cell] * layer_num, state_is_tuple=True)
     print("testing_1")
-    outputs_title,states_title=tf.nn.dynamic_rnn(cell=lstm_cell,inputs=x_title,sequence_length=seqlen_title,dtype=tf.float32)
+    outputs_title,states_title=tf.nn.dynamic_rnn(cell=mlstm_cell,inputs=x_title,sequence_length=seqlen_title,dtype=tf.float32)
 
     with tf.variable_scope('scope1',reuse=None):
         print("testing_2")
-        outputs_body,states_body=tf.nn.dynamic_rnn(cell=lstm_cell,inputs=x_body,sequence_length=seqlen_body,dtype=tf.float32)
+        outputs_body,states_body=tf.nn.dynamic_rnn(cell=mlstm_cell,inputs=x_body,sequence_length=seqlen_body,dtype=tf.float32)
         print("testing_3")
         temp1=tf.stack([tf.range(tf.shape(seqlen_title)[0]),seqlen_title-1],axis=1)
         temp2=tf.stack([tf.range(tf.shape(seqlen_body)[0]),seqlen_body-1],axis=1)
