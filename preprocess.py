@@ -28,7 +28,6 @@ class Preprocess():
             if 'articleBody' in s:
                 clean_data = self.clean(s['articleBody'])
                 clean_data = self.get_tokenized_lemmas(clean_data)
-                for i in clean_data:
                 clean_data = self.remove_stopwords(clean_data)
                 body_tokens[s['Body ID']] = clean_data
 
